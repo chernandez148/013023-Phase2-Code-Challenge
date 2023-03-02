@@ -4,7 +4,7 @@ const initialState = {
   date: "",
   description: "",
   category: "",
-  amount: "",
+  amount: 0,
 };
 
 function AddTransactionForm({ fetchUrl, handleNewTransaction }) {
@@ -24,6 +24,7 @@ function AddTransactionForm({ fetchUrl, handleNewTransaction }) {
       ...formData,
     };
 
+    newTransaction.amount = parseFloat(newTransaction.amount);
     fetch(fetchUrl, {
       method: "POST",
       headers: {
