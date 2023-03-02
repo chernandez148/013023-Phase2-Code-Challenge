@@ -25,3 +25,7 @@ body {
   padding: 20px;
   color: white;
 }
+
+.delete:hover {
+cursor: pointer;
+}

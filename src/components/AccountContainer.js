@@ -20,6 +20,23 @@ function AccountContainer() {
     setBankStatement([...bankStatement, transaction]);
   };
 
+  function handleRemoveTransaction(id) {
+    const updatedTransactions = bankStatement.filter(
+      (transactions) => transactions.id !== id
+    );
+    setBankStatement(updatedTransactions);
+  }
+
+  const deleteTransaction = (id) => {
+    fetch(`http://localhost:8001/transactions/${id}`, {
+      method: "DELETE",
+    }).then((resp) => {
+      if (resp.status === 200) {
+        handleRemoveTransaction(id);
+      }
+    });
+  };
+
   return (
     <div>
       <Search setSearchStatement={setSearchStatement} />
@@ -28,6 +45,7 @@ function AccountContainer() {
         handleNewTransaction={handleNewTransaction}
       />
       <TransactionsList
+        deleteTransaction={deleteTransaction}
         bankStatement={bankStatement}
         searchStatement={searchStatement}
       />

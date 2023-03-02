@@ -1,7 +1,11 @@
 import React from "react";
 import Transaction from "./Transaction";
 
-function TransactionsList({ bankStatement, searchStatement }) {
+function TransactionsList({
+  bankStatement,
+  searchStatement,
+  deleteTransaction,
+}) {
   const searchResults = bankStatement.filter((statement) => {
     return statement.description
       .toLowerCase()
@@ -9,7 +13,13 @@ function TransactionsList({ bankStatement, searchStatement }) {
   });
 
   const RenderStatementInfo = searchResults.map((statementInfo) => {
-    return <Transaction key={statementInfo.id} statementInfo={statementInfo} />;
+    return (
+      <Transaction
+        key={statementInfo.id}
+        statementInfo={statementInfo}
+        deleteTransaction={deleteTransaction}
+      />
+    );
   });
   return (
     <table className="ui celled striped padded table">
@@ -26,6 +36,9 @@ function TransactionsList({ bankStatement, searchStatement }) {
           </th>
           <th>
             <h3 className="ui center aligned header">Amount</h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">Delete</h3>
           </th>
         </tr>
         {RenderStatementInfo}
